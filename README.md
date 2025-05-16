@@ -20,7 +20,7 @@ Islamweb est une application web développée avec Django permettant aux utilisa
 ## Installation du projet
 
 ```bash
-git clone https://github.com/votre-nom-utilisateur/Islamweb.git
+git clone https://github.com/diamawatt/Islamweb
 cd Islamweb
 python -m venv .venv
 source .venv/bin/activate  # Ou .venv\Scripts\activate sur Windows
