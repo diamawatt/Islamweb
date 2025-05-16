@@ -1,0 +1,28 @@
+{% extends 'infos/base.html' %}
+
+{% block content %}
+  {% if article.image %}
+  <div class="d-flex justify-content-center mb-4 px-3">
+    <img
+      src="{{ article.image.url }}"
+      alt="{{ article.title }}"
+      class="img-fluid rounded"
+      style="max-height: 400px; object-fit: contain; max-width: 100%;"
+    />
+  </div>
+  {% endif %}
+
+  <h1 class="mb-3">{{ article.title }}</h1>
+  <p class="text-muted">Publié le {{ article.published_at|date:"d M Y" }}</p>
+  <div class="article-content" style="text-align: justify;">
+    {{ article.content|linebreaks }}
+  </div>
+{% endblock %}
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-3 mt-5">
+  © Mouhamadou Diama WATT — <a href="mailto:wattdiama039@gmail.com" class="text-white text-decoration-underline">wattdiama039@gmail.com</a> — 2025
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

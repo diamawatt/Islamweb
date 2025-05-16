@@ -1,0 +1,69 @@
+{% extends 'infos/base.html' %}
+
+{% block content %}
+<h2 class="mb-4">Al Qran 114 Surahs🕋📖</h2>
+
+<div class="row row-cols-1 g-3">
+  {% for surah in page_obj %}
+    <div class="col">
+      <div class="card border-dark shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title mb-0">
+            <span class="badge bg-light text-dark border border-dark me-2">
+              Sourate {{ surah.number }}
+            </span>
+            {{ surah.arabic }} —
+            <small class="text-muted">{{ surah.translation }}</small>
+          </h5>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<nav aria-label="Pagination des sourates" class="mt-4">
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link border-dark text-dark" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <span class="page-link border-dark text-secondary">&laquo;</span>
+      </li>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+        <li class="page-item active" aria-current="page">
+          <span class="page-link bg-dark text-white border-dark">{{ num }}</span>
+        </li>
+      {% else %}
+        <li class="page-item">
+          <a class="page-link border-dark text-dark" href="?page={{ num }}">{{ num }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link border-dark text-dark" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <span class="page-link border-dark text-secondary">&raquo;</span>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endblock %}
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-3 mt-5">
+  © Mouhamadou Diama WATT — <a href="mailto:wattdiama039@gmail.com" class="text-white text-decoration-underline">wattdiama039@gmail.com</a> — 2025
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

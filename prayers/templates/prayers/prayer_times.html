@@ -1,0 +1,40 @@
+{% extends 'infos/base.html' %}
+
+{% block title %}Horaires de prière{% endblock %}
+
+{% block content %}
+<div class="text-center mb-4">
+    <h1 class="display-5">🕌 Horaires de prière</h1>
+    <p class="text-muted">Pour la semaine du vendredi <strong>{{ prayer_times.day|date:"d F Y" }}</strong></p>
+</div>
+
+{% if prayer_times %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between"><strong>Fajr</strong><span>{{ prayer_times.fajr }}</span></li>
+                    <li class="list-group-item d-flex justify-content-between"><strong>Dhuhr</strong><span>{{ prayer_times.dhuhr }}</span></li>
+                    <li class="list-group-item d-flex justify-content-between"><strong>Asr</strong><span>{{ prayer_times.asr }}</span></li>
+                    <li class="list-group-item d-flex justify-content-between"><strong>Maghrib</strong><span>{{ prayer_times.maghrib }}</span></li>
+                    <li class="list-group-item d-flex justify-content-between"><strong>Isha</strong><span>{{ prayer_times.isha }}</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="alert alert-warning text-center" role="alert">
+    Aucun horaire trouvé pour aujourd'hui.
+</div>
+{% endif %}
+{% endblock %}
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-3 mt-5">
+  © Mouhamadou Diama WATT — <a href="mailto:wattdiama039@gmail.com" class="text-white text-decoration-underline">wattdiama039@gmail.com</a> — 2025
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
