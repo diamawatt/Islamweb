@@ -1,48 +1,37 @@
-# Islamweb - Application Django
+# Islamweb 🕌📖
 
 ## Description
+Islamweb est une application web développée avec Django permettant aux utilisateurs :
 
-Islamweb est une application web développée avec Django pour offrir aux utilisateurs un accès facile à diverses ressources islamiques :
+- 📚 De lire des **articles** sur l’actualité du monde musulman (articles paginés par 6)
+- 🕋 De consulter les **5 heures de prière**
+- 📖 De **lire le Coran**, sourates paginées par 15
 
-- Lire des articles sur les actualités du monde musulman.
-- Consulter les 5 heures de prières quotidiennes.
-- Lire le Coran (avec pagination des sourates).
-
-L'application utilise Bootstrap pour le style et une base de données SQLite gérée avec DB Browser.
-
-## Fonctionnalités
-
-### Pour les utilisateurs
-
-- Consultation des articles paginés par 6 articles par page.
-- Consultation des heures de prières.
-- Lecture du Coran avec pagination des sourates par 15.
-
-### Pour l'administrateur
-
-- Authentification sécurisée.
-- Ajout, modification et suppression des articles (avec titre, contenu et image).
-- Mise à jour des heures de prières.
+## Fonctionnalités Admin
+- 🔐 Authentification de l’administrateur
+- ✏️ Ajout, modification et suppression d’articles (titre, contenu, image)
+- 🕒 Mise à jour des horaires de prières 
 
 ## Technologies utilisées
+- ⚙️ **Django** (framework web Python)
+- 🎨 **Bootstrap** (design et mise en page responsive)
+- 🗃️ **SQLite** via **DB Browser** (base de donné)
 
-- Django
-- Bootstrap
-- SQLite (DB Browser)
-
-## Installation
-
-1. Cloner le projet :
+## Installation du projet
 
 ```bash
-git clone https://github.com/ton-utilisateur/Islamweb.git
+git clone https://github.com/votre-nom-utilisateur/Islamweb.git
 cd Islamweb
+python -m venv .venv
+source .venv/bin/activate  # Ou .venv\Scripts\activate sur Windows
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
 
-Contact
-Pour toute question ou demande :
 
-Téléphone : +221 784629593
+## Contacts:
+📞 Téléphone : +221 784629593
 
-Email : wattdiama039@gmail.com
+📧 Email : wattdiama039@gmail.com
 
-LinkedIn : Mouhamadou Diama WATT
+💼 LinkedIn : Mouhamadou Diama WATT
