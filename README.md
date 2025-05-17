@@ -8,7 +8,7 @@ Islamweb est une application web développée avec Django permettant aux utilisa
 
 ## Fonctionnalités Admin
 - 🔐 Authentification de l’administrateur
-- ✏️ Ajout, modification et suppression d’articles (titre, contenu, image)
+- ✏️ Ajout, modification et suppression d’articles (titre, contenu, image, categorie)
 - 🕒 Mise à jour des horaires de prières 
 
 ## Technologies utilisées
