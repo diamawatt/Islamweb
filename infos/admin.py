@@ -3,4 +3,5 @@ from .models import Article
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'published_at')
+    list_display = ('title', 'category', 'published_at')
+    list_filter = ('category',)

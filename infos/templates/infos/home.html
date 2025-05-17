@@ -2,131 +2,142 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-5">
-   <div class="bg-danger text-white py-2 px-3 mb-4 rounded shadow-sm overflow-hidden position-relative" style="height: 40px;">
-      <div class="scroll-container position-absolute top-50 start-0 translate-middle-y" style="width: 100%; height: 40px; overflow: hidden;">
-        <div class="scroll-text" style="white-space: nowrap; display: inline-block; padding-right: 50px;">
-         💣 Gaza : les bombardements se poursuivent malgré les appels au cessez-le-feu - 🕌 Maroc : ouverture d’une des plus grandes mosquées d’Afrique à Casablanca - 🧕 France : polémique sur une nouvelle loi visant les habits religieux.
+
+<!-- Catégories d'articles -->
+      <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
+         <a href="{% url 'articles_by_category' 'Tous' %}" class="border border-dark px-3 py-1 rounded-pill fw-bold text-uppercase text-decoration-none text-dark {% if current_category == 'Tous' %}bg-dark text-white{% endif %}">Tous</a>
+        <a href="{% url 'articles_by_category' 'Monde' %}" class="border border-dark px-3 py-1 rounded-pill fw-bold text-uppercase text-decoration-none text-dark {% if current_category == 'Monde' %}bg-dark text-white{% endif %}">Monde</a>
+        <a href="{% url 'articles_by_category' 'Afrique' %}" class="border border-dark px-3 py-1 rounded-pill fw-bold text-uppercase text-decoration-none text-dark {% if current_category == 'Afrique' %}bg-dark text-white{% endif %}">Afrique</a>
+        <a href="{% url 'articles_by_category' 'Europe' %}" class="border border-dark px-3 py-1 rounded-pill fw-bold text-uppercase text-decoration-none text-dark {% if current_category == 'Europe' %}bg-dark text-white{% endif %}">Europe</a>
+        <a href="{% url 'articles_by_category' 'Orient' %}" class="border border-dark px-3 py-1 rounded-pill fw-bold text-uppercase text-decoration-none text-dark {% if current_category == 'Orient' %}bg-dark text-white{% endif %}">Orient</a>
+      </div>
+      <div class="container mt-5">
+        <div class="bg-primary text-white py-2 px-3 mb-4 rounded shadow-sm overflow-hidden position-relative" style="height: 40px;">
+          <div class="scroll-container position-absolute top-50 start-0 translate-middle-y" style="width: 100%; height: 40px; overflow: hidden;">
+            <div class="scroll-text">
+              🚀 Bienvenue sur notre site officiel ! – 🕋 Le Monde Musulman en Direct 📰: Afrique, Amériques, Europe & Orient en un clin d’œil
+            </div>
+          </div>
         </div>
       </div>
+
+   {% if page_obj and page_obj|length > 0 %}
+   {% with page_obj.0 as main_article %}
+   <div class="mb-5 position-relative rounded overflow-hidden shadow-lg">
+      {% if main_article.image %}
+      <img src="{{ main_article.image.url }}" alt="{{ main_article.title }}" class="img-fluid w-100" style="height: 350px; object-fit: cover;">
+      {% endif %}
+      <div class="bg-dark bg-opacity-50 position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-4 text-white">
+         <h2 class="fw-bold">{{ main_article.title }}</h2>
+         <p class="mb-2">{{ main_article.content|truncatewords:40 }}</p>
+         <a href="{% url 'article_detail' main_article.pk %}" class="btn btn-black-outline btn-sm rounded-pill px-4">Lire l'article</a>
+         <small class="mt-2 d-block text-light">Publié le {{ main_article.published_at|date:"d M Y" }}</small>
+      </div>
    </div>
+   {% endwith %}
+   {% endif %}
 
-    {% if page_obj and page_obj|length > 0 %}
-    {% with page_obj.0 as main_article %}
-    <div class="mb-5 position-relative rounded overflow-hidden shadow-lg">
-        {% if main_article.image %}
-        <img src="{{ main_article.image.url }}" alt="{{ main_article.title }}" class="img-fluid w-100" style="height: 350px; object-fit: cover;">
-        {% endif %}
-        <div class="bg-dark bg-opacity-50 position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-4 text-white">
-            <h2 class="fw-bold">{{ main_article.title }}</h2>
-            <p class="mb-2">{{ main_article.content|truncatewords:40 }}</p>
-            <a href="{% url 'article_detail' main_article.pk %}" class="btn btn-white-outline btn-sm rounded-pill px-4">Lire l'article</a>
-            <small class="mt-2 d-block text-light">Publié le {{ main_article.published_at|date:"d M Y" }}</small>
-        </div>
-    </div>
-    {% endwith %}
-    {% endif %}
+   <div class="row">
+      <div class="col-lg-8">
+         <div class="row gy-4">
+            {% for article in page_obj %}
+            {% if not forloop.first %}
+            <div class="col-md-6">
+               <div class="card h-100 shadow-sm border-0 rounded-3">
+                  {% if article.image %}
+                  <img src="{{ article.image.url }}" class="card-img-top rounded-top" alt="{{ article.title }}" style="height: 180px; object-fit: cover;">
+                  {% endif %}
+                  <div class="card-body d-flex flex-column">
+                     <h5 class="card-title fw-semibold">{{ article.title }}</h5>
+                     <p class="card-text text-muted small">{{ article.content|truncatewords:25 }}</p>
+                     <div class="mt-auto d-flex justify-content-between align-items-center">
+                        <small class="text-secondary">📅 {{ article.published_at|date:"d M Y" }}</small>
+                        <a href="{% url 'article_detail' article.pk %}" class="btn btn-black-outline btn-sm rounded-pill px-3">
+                           Voir <i class="bi bi-arrow-right"></i>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+         </div>
 
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="row gy-4">
-                {% for article in page_obj %}
-                    {% if not forloop.first %}
-                    <div class="col-md-6">
-                        <div class="card h-100 shadow-sm border-0 rounded-3">
-                            {% if article.image %}
-                            <img src="{{ article.image.url }}" class="card-img-top rounded-top" alt="{{ article.title }}" style="height: 180px; object-fit: cover;">
-                            {% endif %}
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title fw-semibold">{{ article.title }}</h5>
-                                <p class="card-text text-muted small">{{ article.content|truncatewords:25 }}</p>
-                                <div class="mt-auto d-flex justify-content-between align-items-center">
-                                    <small class="text-secondary">📅 {{ article.published_at|date:"d M Y" }}</small>
-                                    <a href="{% url 'article_detail' article.pk %}" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-                                        Voir <i class="bi bi-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                {% endfor %}
+         <nav aria-label="Navigation des pages" class="mt-5">
+            <ul class="pagination justify-content-center">
+               {% if page_obj.has_previous %}
+               <li class="page-item">
+                  <a class="page-link black-pagination" href="?page={{ page_obj.previous_page_number }}">&laquo; Précédent</a>
+               </li>
+               {% else %}
+               <li class="page-item disabled">
+                  <span class="page-link black-pagination">&laquo; Précédent</span>
+               </li>
+               {% endif %}
+
+               {% for num in page_obj.paginator.page_range %}
+               {% if page_obj.number == num %}
+               <li class="page-item active" aria-current="page">
+                  <span class="page-link black-pagination active-page">{{ num }}</span>
+               </li>
+               {% else %}
+               <li class="page-item">
+                  <a class="page-link black-pagination" href="?page={{ num }}">{{ num }}</a>
+               </li>
+               {% endif %}
+               {% endfor %}
+
+               {% if page_obj.has_next %}
+               <li class="page-item">
+                  <a class="page-link black-pagination" href="?page={{ page_obj.next_page_number }}">Suivant &raquo;</a>
+               </li>
+               {% else %}
+               <li class="page-item disabled">
+                  <span class="page-link black-pagination">Suivant &raquo;</span>
+               </li>
+               {% endif %}
+            </ul>
+         </nav>
+      </div>
+
+      <aside class="col-lg-4 d-none d-lg-block">
+         <div class="sticky-top" style="top: 80px;">
+            <div class="mb-4 p-3 bg-light rounded shadow-sm">
+               <h5 class="mb-3 fw-bold border-bottom pb-2">Articles récents</h5>
+               {% for article in last_two_articles %}
+               <div class="mb-3 d-flex">
+                  {% if article.image %}
+                  <img src="{{ article.image.url }}" alt="{{ article.title }}" class="me-3 rounded" style="width: 64px; height: 48px; object-fit: cover;">
+                  {% endif %}
+                  <div>
+                     <a href="{% url 'article_detail' article.pk %}" class="text-decoration-none fw-semibold text-dark">{{ article.title|truncatechars:50 }}</a>
+                     <br>
+                     <small class="text-muted">{{ article.published_at|date:"d M Y" }}</small>
+                  </div>
+               </div>
+               {% empty %}
+               <p class="text-muted">Pas d’articles récents pour le moment.</p>
+               {% endfor %}
             </div>
 
-            <nav aria-label="Navigation des pages" class="mt-5">
-                <ul class="pagination justify-content-center">
-                    {% if page_obj.has_previous %}
-                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; Précédent</a></li>
-                    {% else %}
-                    <li class="page-item disabled"><span class="page-link">&laquo; Précédent</span></li>
-                    {% endif %}
+            <!-- Suppression de la section Catégories -->
 
-                    {% for num in page_obj.paginator.page_range %}
-                        {% if page_obj.number == num %}
-                        <li class="page-item active" aria-current="page"><span class="page-link">{{ num }}</span></li>
-                        {% else %}
-                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-                        {% endif %}
-                    {% endfor %}
-
-                    {% if page_obj.has_next %}
-                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Suivant &raquo;</a></li>
-                    {% else %}
-                    <li class="page-item disabled"><span class="page-link">Suivant &raquo;</span></li>
-                    {% endif %}
-                </ul>
-            </nav>
-        </div>
-
-        <aside class="col-lg-4 d-none d-lg-block">
-            <div class="sticky-top" style="top: 80px;">
-
-                <div class="mb-4 p-3 bg-light rounded shadow-sm">
-                    <h5 class="mb-3 fw-bold border-bottom pb-2">Articles populaires</h5>
-                    {% for article in popular_articles %}
-                    <div class="mb-3 d-flex">
-                        {% if article.image %}
-                        <img src="{{ article.image.url }}" alt="{{ article.title }}" class="me-3 rounded" style="width: 64px; height: 48px; object-fit: cover;">
-                        {% endif %}
-                        <div>
-                            <a href="{% url 'article_detail' article.pk %}" class="text-decoration-none fw-semibold text-dark">{{ article.title|truncatechars:50 }}</a>
-                            <br>
-                            <small class="text-muted">{{ article.published_at|date:"d M Y" }}</small>
-                        </div>
-                    </div>
-                    {% empty %}
-                    <p class="text-muted">Pas d’articles populaires pour le moment.</p>
-                    {% endfor %}
-                </div>
-
-                <div class="p-3 bg-light rounded shadow-sm">
-                    <h5 class="mb-3 fw-bold border-bottom pb-2">Catégories</h5>
-                    <ul class="list-unstyled">
-                        {% for category in categories %}
-                        <li><a href="{% url 'articles_by_category' category.slug %}" class="text-decoration-none text-dark">{{ category.name }}</a></li>
-                        {% empty %}
-                        <li><small class="text-muted">Aucune catégorie</small></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-
-                <!-- SECTION PUBLICITÉ -->
-                <div class="mt-4 p-3 bg-light border rounded shadow-sm text-center">
-                    <h5 class="fw-bold mb-3 text-dark">📚 Offre Spéciale Tabaski</h5>
-                    <a href="http://127.0.0.1:8000/" target="_blank" rel="noopener noreferrer">
-                        <img src="https://blog.mieux-etre.fr/wp-content/uploads/2023/04/ustensiles_de_cuisine.jpg"
-                             alt="Offre Ramadan Islamweb"
-                             class="img-fluid rounded mb-3 shadow"
-                             style="max-height: 180px; object-fit: cover;">
-                    </a>
-                    <p class="mb-0 text-muted small">
-                        Découvrez notre collection couverts pour la fete à prix réduit. Livraison gratuite pendant toute la periode d'avant🌙.
-                    </p>
-                </div>
-
+            <!-- SECTION PUBLICITÉ -->
+            <div class="mt-4 p-3 bg-light border rounded shadow-sm text-center">
+               <h5 class="fw-bold mb-3 text-dark">🛒🌙 Offre Spéciale Tabaski</h5>
+               <a href="https://www.jumia.sn/cuisine-salle-manger-casseroles/?srsltid=AfmBOoq0dRAUJ236tq5YHP4LX1uNhiIEout-D8cd8YHb2fBxGcKqQwHg" target="_blank" rel="noopener noreferrer">
+               <img src="https://blog.mieux-etre.fr/wp-content/uploads/2023/04/ustensiles_de_cuisine.jpg"
+                  alt="Offre Ramadan Islamweb"
+                  class="img-fluid rounded mb-3 shadow"
+                  style="max-height: 180px; object-fit: cover;">
+               </a>
+               <p class="mb-0 text-muted small">
+                  Découvrez notre collection couverts pour la fête à prix réduit. Livraison gratuite pendant toute la période d'avant🌙.
+               </p>
             </div>
-        </aside>
-    </div>
+         </div>
+      </aside>
+   </div>
 </div>
 
 <!-- Bootstrap + Bootstrap Icons -->
@@ -135,80 +146,143 @@
 
 <style>
    .scroll-container {
-  position: relative;
-  height: 40px;
-  overflow: hidden;
-  width: 100%;
+      position: relative;
+      height: 40px;
+      overflow: hidden;
+      width: 100%;
+   }
+
+  .scroll-text {
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   white-space: nowrap;
+   animation: scroll-left 18s linear infinite;
+   font-weight: 600;
+   color: white;
 }
 
-.scroll-text {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  white-space: nowrap;
-  animation: scroll-left 18s linear infinite;
-  font-weight: 600;
+
+   @keyframes scroll-left {
+      0% {
+         left: 100%;
+      }
+      100% {
+         left: -100%;
+      }
+   }
+
+   .btn-black-outline {
+   background-color: white;
+   color: #2563eb;
+   border: 1px solid #2563eb;
+   transition: all 0.3s ease;
+}
+
+.btn-black-outline:hover {
+   background-color: #2563eb;
+   color: white;
+}
+
+
+   .card:hover {
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      transform: translateY(-4px);
+      transition: all 0.3s ease;
+      cursor: pointer;
+   }
+
+   .bg-opacity-50 {
+      background-color: rgba(0,0,0,0.5) !important;
+   }
+
+   aside a:hover {
+      text-decoration: underline;
+      color: black !important;
+   }
+
+   .black-pagination {
+      color: black;
+      border: 1px solid black;
+      background-color: white;
+   }
+
+   .black-pagination:hover {
+      background-color: black;
+      color: white;
+   }
+
+   .pagination {
+   display: flex;
+   justify-content: center;
+   gap: 8px;
+   padding: 20px 0;
+   font-family: 'Segoe UI', sans-serif;
+}
+
+.page-item {
+   transition: transform 0.2s ease;
+}
+
+.page-link {
+   padding: 10px 18px;
+   font-size: 16px;
+   font-weight: 500;
+   background-color: #ffffff;
+   color: #2563eb; /* bleu intense */
+   border: 2px solid #2563eb;
+   border-radius: 12px;
+   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+   transition: all 0.25s ease;
+   cursor: pointer;
+   text-decoration: none;
+}
+
+.page-link:hover {
+   background-color: #2563eb;
+   color: #ffffff;
+   transform: translateY(-2px);
+   box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+}
+
+.page-item.active .page-link {
+   background-color: #2563eb;
+   color: #ffffff;
+   font-weight: bold;
+   border-color: #2563eb;
+   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.page-item.disabled .page-link {
+   background-color: #f0f4ff;
+   color: #a0b6f2;
+   border-color: #dbeafe;
+   cursor: not-allowed;
+   box-shadow: none;
+}
+/* cibler uniquement les liens dans la div qui contient les catégories */
+.d-flex.justify-content-center.gap-3.flex-wrap.mb-4 a {
+  color: black; /* texte noir */
+  background-color: white; /* fond blanc */
+  border: 2px solid #007bff; /* bordure bleue */
+  transition: background-color 0.3s, color 0.3s;
+  text-decoration: none;
+  padding: 0.25rem 1rem;
+  border-radius: 50px;
+}
+
+.d-flex.justify-content-center.gap-3.flex-wrap.mb-4 a:hover {
+  background-color: #007bff; /* fond bleu */
   color: white;
+  border-color: #007bff;
+  text-decoration: none;
 }
 
-.scroll-text:nth-child(2) {
-  left: 100%;
-  animation-delay: 9s; /* moitié de la durée de l'animation */
+.d-flex.justify-content-center.gap-3.flex-wrap.mb-4 a.bg-dark {
+  background-color: #007bff !important;
+  color: white !important;
+  border-color: #007bff !important;
 }
 
-@keyframes scroll-left {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: -100%;
-  }
-}
-
-.announcement-text {
-  position: absolute;
-  white-space: nowrap;
-  animation: scroll-left-continuous 18s linear infinite;
-}
-
-
-    .announcement-text {
-        position: absolute;
-        white-space: nowrap;
-        animation: scroll-left-pause 18s linear infinite;
-    }
-
-    .btn-white-outline {
-        background-color: white;
-        color: #0d6efd;
-        border: 1px solid #0d6efd;
-        transition: background-color 0.3s, color 0.3s;
-    }
-    .btn-white-outline:hover {
-        background-color: #0d6efd;
-        color: white;
-    }
-
-    .card:hover {
-        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        transform: translateY(-4px);
-        transition: all 0.3s ease;
-        cursor: pointer;
-    }
-
-    .bg-opacity-50 {
-        background-color: rgba(0,0,0,0.5) !important;
-    }
-
-    aside a:hover {
-        text-decoration: underline;
-        color: #0d6efd !important;
-    }
-
-    .pagination .page-item.active .page-link {
-        background-color: #0d6efd;
-        border-color: #0d6efd;
-        color: white;
-    }
 </style>
 {% endblock %}

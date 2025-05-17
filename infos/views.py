@@ -4,136 +4,43 @@ from .models import Article
 
 def home(request):
     articles_list = Article.objects.order_by('-published_at')
-    paginator = Paginator(articles_list, 6)
+    paginator = Paginator(articles_list, 10)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'infos/home.html', {'page_obj': page_obj})
+    last_two_articles = articles_list[:4]
+
+    context = {
+        'page_obj': page_obj,
+        'last_two_articles': last_two_articles,
+    }
+
+    return render(request, 'infos/home.html', context)
 
 def article_detail(request, pk):
     article = get_object_or_404(Article, pk=pk)
-    return render(request, 'infos/article_detail.html', {'article': article})
+    last_two_articles = Article.objects.order_by('-published_at')[:4]
+    context = {
+        'article': article,
+        'last_two_articles': last_two_articles,
+    }
 
-def surahs_list(request):
-    surahs = [
-        {'number': 1, 'arabic': 'الفاتحة', 'translation': 'L’Ouverture'},
-        {'number': 2, 'arabic': 'البقرة', 'translation': 'La Vache'},
-        {'number': 3, 'arabic': 'آل عمران', 'translation': 'La famille d\'Imran'},
-        {'number': 4, 'arabic': 'النساء', 'translation': 'Les Femmes'},
-        {'number': 5, 'arabic': 'المائدة', 'translation': 'La Table Servie'},
-        {'number': 6, 'arabic': 'الأنعام', 'translation': 'Les Bestiaux'},
-        {'number': 7, 'arabic': 'الأعراف', 'translation': 'Les Hauteurs'},
-        {'number': 8, 'arabic': 'الأنفال', 'translation': 'Le Butin'},
-        {'number': 9, 'arabic': 'التوبة', 'translation': 'Le Repentir'},
-        {'number': 10, 'arabic': 'يونس', 'translation': 'Jonas'},
-        {'number': 11, 'arabic': 'هود', 'translation': 'Houd'},
-        {'number': 12, 'arabic': 'يوسف', 'translation': 'Joseph'},
-        {'number': 13, 'arabic': 'الرعد', 'translation': 'Le Tonnerre'},
-        {'number': 14, 'arabic': 'إبراهيم', 'translation': 'Abraham'},
-        {'number': 15, 'arabic': 'الحجر', 'translation': 'Al-Hijr'},
-        {'number': 16, 'arabic': 'النحل', 'translation': 'Les Abeilles'},
-        {'number': 17, 'arabic': 'الإسراء', 'translation': 'Le Voyage Nocturne'},
-        {'number': 18, 'arabic': 'الكهف', 'translation': 'La Caverne'},
-        {'number': 19, 'arabic': 'مريم', 'translation': 'Marie'},
-        {'number': 20, 'arabic': 'طه', 'translation': 'Tâhâ'},
-        {'number': 21, 'arabic': 'الأنبياء', 'translation': 'Les Prophètes'},
-        {'number': 22, 'arabic': 'الحج', 'translation': 'Le Pèlerinage'},
-        {'number': 23, 'arabic': 'المؤمنون', 'translation': 'Les Croyants'},
-        {'number': 24, 'arabic': 'النور', 'translation': 'La Lumière'},
-        {'number': 25, 'arabic': 'الفرقان', 'translation': 'Le Discernement'},
-        {'number': 26, 'arabic': 'الشعراء', 'translation': 'Les Poètes'},
-        {'number': 27, 'arabic': 'النمل', 'translation': 'Les Fourmis'},
-        {'number': 28, 'arabic': 'القصص', 'translation': 'Le Récit'},
-        {'number': 29, 'arabic': 'العنكبوت', 'translation': 'L’Araignée'},
-        {'number': 30, 'arabic': 'الروم', 'translation': 'Les Romains'},
-        {'number': 31, 'arabic': 'لقمان', 'translation': 'Luqman'},
-        {'number': 32, 'arabic': 'السجدة', 'translation': 'La Prosternation'},
-        {'number': 33, 'arabic': 'الأحزاب', 'translation': 'Les Coalisés'},
-        {'number': 34, 'arabic': 'سبإ', 'translation': 'Saba'},
-        {'number': 35, 'arabic': 'فاطر', 'translation': 'Le Créateur'},
-        {'number': 36, 'arabic': 'يس', 'translation': 'Ya-Sin'},
-        {'number': 37, 'arabic': 'الصافات', 'translation': 'Ceux qui Rangent en Rangées'},
-        {'number': 38, 'arabic': 'ص', 'translation': 'Sad'},
-        {'number': 39, 'arabic': 'الزمر', 'translation': 'Les Groupes'},
-        {'number': 40, 'arabic': 'غافر', 'translation': 'Le Pardonneur'},
-        {'number': 41, 'arabic': 'فصلت', 'translation': 'Les Versets Détaillés'},
-        {'number': 42, 'arabic': 'الشورى', 'translation': 'La Consultation'},
-        {'number': 43, 'arabic': 'الزخرف', 'translation': 'L’Ornement'},
-        {'number': 44, 'arabic': 'الدخان', 'translation': 'La Fumée'},
-        {'number': 45, 'arabic': 'الجاثية', 'translation': 'L’Agenouillée'},
-        {'number': 46, 'arabic': 'الأحقاف', 'translation': 'Les Dunes'},
-        {'number': 47, 'arabic': 'محمد', 'translation': 'Muhammad'},
-        {'number': 48, 'arabic': 'الفتح', 'translation': 'La Victoire'},
-        {'number': 49, 'arabic': 'الحجرات', 'translation': 'Les Appartements'},
-        {'number': 50, 'arabic': 'ق', 'translation': 'Qaf'},
-        {'number': 51, 'arabic': 'الذاريات', 'translation': 'Les Vents Qui Éparpillent'},
-        {'number': 52, 'arabic': 'الطور', 'translation': 'Le Mont'},
-        {'number': 53, 'arabic': 'النجم', 'translation': 'L’Étoile'},
-        {'number': 54, 'arabic': 'القمر', 'translation': 'La Lune'},
-        {'number': 55, 'arabic': 'الرحمن', 'translation': 'Le Tout Miséricordieux'},
-        {'number': 56, 'arabic': 'الواقعة', 'translation': 'L’Événement'},
-        {'number': 57, 'arabic': 'الحديد', 'translation': 'Le Fer'},
-        {'number': 58, 'arabic': 'المجادلة', 'translation': 'La Discussion'},
-        {'number': 59, 'arabic': 'الحشر', 'translation': 'Le Rassemblement'},
-        {'number': 60, 'arabic': 'الممتحنة', 'translation': 'L’Éprouvée'},
-        {'number': 61, 'arabic': 'الصف', 'translation': 'Le Rang'},
-        {'number': 62, 'arabic': 'الجمعة', 'translation': 'Le Vendredi'},
-        {'number': 63, 'arabic': 'المنافقون', 'translation': 'Les Hypocrites'},
-        {'number': 64, 'arabic': 'التغابن', 'translation': 'La Grande Perdition'},
-        {'number': 65, 'arabic': 'الطلاق', 'translation': 'Le Divorce'},
-        {'number': 66, 'arabic': 'التحريم', 'translation': 'L’Interdiction'},
-        {'number': 67, 'arabic': 'الملك', 'translation': 'La Royauté'},
-        {'number': 68, 'arabic': 'القلم', 'translation': 'La Plume'},
-        {'number': 69, 'arabic': 'الحاقة', 'translation': 'L’Inevitable'},
-        {'number': 70, 'arabic': 'المعارج', 'translation': 'Les Voies d’Ascension'},
-        {'number': 71, 'arabic': 'نوح', 'translation': 'Noé'},
-        {'number': 72, 'arabic': 'الجن', 'translation': 'Les Djinns'},
-        {'number': 73, 'arabic': 'المزّمّل', 'translation': 'L’Enveloppé'},
-        {'number': 74, 'arabic': 'المدّثر', 'translation': 'Le Revêtu d’un manteau'},
-        {'number': 75, 'arabic': 'القيامة', 'translation': 'La Résurrection'},
-        {'number': 76, 'arabic': 'الإنسان', 'translation': 'L’Homme'},
-        {'number': 77, 'arabic': 'المرسلات', 'translation': 'Les Envoyés'},
-        {'number': 78, 'arabic': 'النبأ', 'translation': 'La Nouvelle'},
-        {'number': 79, 'arabic': 'النازعات', 'translation': 'Les Arracheuses'},
-        {'number': 80, 'arabic': 'عبس', 'translation': 'Il S’est Froncé'},
-        {'number': 81, 'arabic': 'التكوير', 'translation': 'L’Obscurcissement'},
-        {'number': 82, 'arabic': 'الإنفطار', 'translation': 'La Fente'},
-        {'number': 83, 'arabic': 'المطفّفين', 'translation': 'Les Fraudeurs'},
-        {'number': 84, 'arabic': 'الإنشقاق', 'translation': 'La Scission'},
-        {'number': 85, 'arabic': 'البروج', 'translation': 'Les Constellations'},
-        {'number': 86, 'arabic': 'الطارق', 'translation': 'L’Astre Nocturne'},
-        {'number': 87, 'arabic': 'الأعلى', 'translation': 'Le Très-Haut'},
-        {'number': 88, 'arabic': 'الغاشية', 'translation': 'L’Enveloppant'},
-        {'number': 89, 'arabic': 'الفجر', 'translation': 'L’Aube'},
-        {'number': 90, 'arabic': 'البلد', 'translation': 'La Cité'},
-        {'number': 91, 'arabic': 'الشمس', 'translation': 'Le Soleil'},
-        {'number': 92, 'arabic': 'الليل', 'translation': 'La Nuit'},
-        {'number': 93, 'arabic': 'الضحى', 'translation': 'Le Jour Montant'},
-        {'number': 94, 'arabic': 'الشرح', 'translation': 'L’Ouverture'},
-        {'number': 95, 'arabic': 'التين', 'translation': 'Le Figuier'},
-        {'number': 96, 'arabic': 'العلق', 'translation': 'L’Adhérence'},
-        {'number': 97, 'arabic': 'القدر', 'translation': 'La Destinée'},
-        {'number': 98, 'arabic': 'البينة', 'translation': 'La Preuve'},
-        {'number': 99, 'arabic': 'الزلزلة', 'translation': 'Le Tremblement'},
-        {'number': 100, 'arabic': 'العاديات', 'translation': 'Les Coursiers'},
-        {'number': 101, 'arabic': 'القارعة', 'translation': 'L’Heure Fatale'},
-        {'number': 102, 'arabic': 'التكاثر', 'translation': 'La Rivalité'},
-        {'number': 103, 'arabic': 'العصر', 'translation': 'Le Temps'},
-        {'number': 104, 'arabic': 'الهمزة', 'translation': 'Le Médisant'},
-        {'number': 105, 'arabic': 'الفيل', 'translation': 'L’Éléphant'},
-        {'number': 106, 'arabic': 'قريش', 'translation': 'Quraysh'},
-        {'number': 107, 'arabic': 'الماعون', 'translation': 'L’Aumône'},
-        {'number': 108, 'arabic': 'الكوثر', 'translation': 'L’Abondance'},
-        {'number': 109, 'arabic': 'الكافرون', 'translation': 'Les Infidèles'},
-        {'number': 110, 'arabic': 'النصر', 'translation': 'Le Secours'},
-        {'number': 111, 'arabic': 'المسد', 'translation': 'Les Fibres'},
-        {'number': 112, 'arabic': 'الإخلاص', 'translation': 'Le Monothéisme Pur'},
-        {'number': 113, 'arabic': 'الفلق', 'translation': 'L’Aube Naissante'},
-        {'number': 114, 'arabic': 'الناس', 'translation': 'Les Hommes'},
-    ]
-    paginator = Paginator(surahs, 15)  # 15 sourates par page
-    page_number = request.GET.get('page')
+    return render(request, 'infos/article_detail.html', context)
+
+def articles_by_category(request, category_name):
+    if category_name.lower() == 'tous':
+        articles = Article.objects.order_by('-published_at')
+    else:
+        articles = Article.objects.filter(category__iexact=category_name).order_by('-published_at')
+
+    paginator = Paginator(articles, 7)
+    page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
+    last_two_articles = Article.objects.order_by('-published_at')[:2]
 
-    return render(request, 'infos/surahs.html', {'page_obj': page_obj})
+    return render(request, 'infos/home.html', {
+        'page_obj': page_obj,
+        'last_two_articles': last_two_articles,
+        'current_category': category_name,
+    })

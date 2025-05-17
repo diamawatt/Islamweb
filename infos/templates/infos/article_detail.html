@@ -85,10 +85,10 @@
 
         <!-- Sidebar droite -->
         <div class="col-md-4">
-            <!-- Articles populaires -->
+            <!-- Articles récents -->
             <div class="mb-4 p-3 bg-light rounded shadow-sm">
-                <h5 class="mb-3 fw-bold border-bottom pb-2">Articles populaires</h5>
-                {% for article in popular_articles %}
+                <h5 class="mb-3 fw-bold border-bottom pb-2">Articles récents</h5>
+                {% for article in last_two_articles %}
                 <div class="mb-3 d-flex">
                     {% if article.image %}
                     <img src="{{ article.image.url }}" alt="{{ article.title }}" class="me-3 rounded" style="width: 64px; height: 48px; object-fit: cover;">
@@ -101,26 +101,14 @@
                     </div>
                 </div>
                 {% empty %}
-                <p class="text-muted">Pas d’articles populaires pour le moment.</p>
+                <p class="text-muted">Pas d’articles récents pour le moment.</p>
                 {% endfor %}
-            </div>
-
-            <!-- Catégories -->
-            <div class="p-3 bg-light rounded shadow-sm mb-4">
-                <h5 class="mb-3 fw-bold border-bottom pb-2">Catégories</h5>
-                <ul class="list-unstyled">
-                    {% for category in categories %}
-                    <li><a href="{% url 'articles_by_category' category.slug %}" class="text-decoration-none text-dark">{{ category.name }}</a></li>
-                    {% empty %}
-                    <li><small class="text-muted">Aucune catégorie</small></li>
-                    {% endfor %}
-                </ul>
             </div>
 
             <!-- Publicité -->
             <div class="p-3 bg-light border rounded shadow-sm text-center">
                 <h5 class="fw-bold mb-3 text-dark">📚 Offre Spéciale Tabaski</h5>
-                <a href="http://127.0.0.1:8000/" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.jumia.sn/cuisine-salle-manger-casseroles/?srsltid=AfmBOoq0dRAUJ236tq5YHP4LX1uNhiIEout-D8cd8YHb2fBxGcKqQwHg" target="_blank" rel="noopener noreferrer">
                     <img src="https://blog.mieux-etre.fr/wp-content/uploads/2023/04/ustensiles_de_cuisine.jpg"
                          alt="Offre Ramadan Islamweb"
                          class="img-fluid rounded mb-3 shadow"

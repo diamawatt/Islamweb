@@ -1,9 +1,8 @@
 from django.urls import path
-from .views import home, article_detail, surahs_list
-
+from . import views
 
 urlpatterns = [
-    path('', home, name='home'),
-    path('article/<int:pk>/', article_detail, name='article_detail'),
-    path('surahs/', surahs_list, name='surahs_list'),
+    path('', views.home, name='home'),
+    path('category/<str:category_name>/', views.articles_by_category, name='articles_by_category'),
+    path('article/<int:pk>/', views.article_detail, name='article_detail'),
 ]

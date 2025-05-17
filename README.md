@@ -3,9 +3,8 @@
 ## Description
 Islamweb est une application web développée avec Django permettant aux utilisateurs :
 
-- 📚 De lire des **articles** sur l’actualité du monde musulman (articles paginés par 6)
+- 📚 De lire des **articles** sur l’actualité du monde musulman (articles paginés par 10)
 - 🕋 De consulter les **5 heures de prière**
-- 📖 De **lire le Coran**, sourates paginées par 15
 
 ## Fonctionnalités Admin
 - 🔐 Authentification de l’administrateur
