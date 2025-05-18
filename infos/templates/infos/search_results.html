@@ -1,0 +1,119 @@
+{% extends 'infos/base.html' %}
+{% block content %}
+
+<style>
+  .result-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1.5rem;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .result-item:hover {
+    background-color: #f9f9f9;
+    border-radius: 6px;
+  }
+
+  .result-item img {
+    width: 140px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+  }
+
+  .result-item img:hover {
+    transform: scale(1.03);
+  }
+
+  .result-item .text-content {
+    flex: 1;
+  }
+
+  .result-item h5 {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .result-item p {
+    color: #444;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .sidebar-pub {
+    position: sticky;
+    top: 80px;
+  }
+
+  .sidebar-pub .card {
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-radius: 10px;
+  }
+
+  .sidebar-pub img:hover {
+    transform: scale(1.02);
+  }
+
+  .sidebar-pub p {
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  @media (max-width: 767px) {
+    .sidebar-pub {
+      display: none;
+    }
+  }
+</style>
+
+<div class="container mt-4">
+  <h2 class="mb-4">Résultats pour “{{ query }}”</h2>
+  <div class="row">
+    <!-- Résultats -->
+    <div class="col-md-8">
+      {% if results %}
+        {% for article in results %}
+          <div class="result-item">
+            {% if article.image %}
+              <img src="{{ article.image.url }}" alt="{{ article.title }}">
+            {% endif %}
+            <div class="text-content">
+              <h5>
+                <a href="{% url 'article_detail' article.pk %}" class="text-decoration-none text-dark">
+                  {{ article.title }}
+                </a>
+              </h5>
+              <p>{{ article.content|truncatewords:30 }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="text-muted">Aucun article ne correspond à votre recherche.</p>
+      {% endif %}
+    </div>
+
+    <!-- Publicité -->
+    <div class="col-md-4 sidebar-pub">
+      <div class="card p-3 text-center">
+        <h5 class="fw-bold mb-3">📚 Offre Spéciale Tabaski</h5>
+        <a href="https://www.jumia.sn/cart/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sn.jumia.is/cms/00000000_2024/JA/TB/TABASKI/SN_W23_JA_AID_GEN_TB_300x400_BARBECUE.jpg"
+               alt="Offre Ramadan Islamweb"
+               class="img-fluid rounded mb-3 shadow"
+               style="max-height: 180px; object-fit: cover;">
+        </a>
+          <p class="mb-0 text-muted small">
+                  Profiter de notre promotion pour un BARBECUE dernière génération pour la fête à prix réduit. Livraison gratuite pendant toute la période d'avant🌙.
+          </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

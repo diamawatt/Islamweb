@@ -1,10 +1,9 @@
-# infos/models.py
-
 from django.db import models
+
 
 class Article(models.Model):
     CATEGORY_CHOICES = [
-        ('tous', 'Tous'),           # Ajouté "Tous"
+        ('tous', 'Tout'),
         ('orient', 'Orient'),
         ('afrique', 'Afrique'),
         ('europe', 'Europe'),
@@ -17,7 +16,7 @@ class Article(models.Model):
     image = models.ImageField(upload_to='articles/', null=True, blank=True)
     published_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='tous')
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='afrique')
 
     def __str__(self):
         return self.title

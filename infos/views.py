@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from .models import Article
 
+
 def home(request):
     articles_list = Article.objects.order_by('-published_at')
     paginator = Paginator(articles_list, 10)
@@ -44,3 +45,18 @@ def articles_by_category(request, category_name):
         'last_two_articles': last_two_articles,
         'current_category': category_name,
     })
+
+from django.db.models import Q
+
+def article_search(request):
+    query = request.GET.get('q')
+    results = Article.objects.filter(
+        Q(title__icontains=query) | Q(content__icontains=query)
+    ).order_by('-published_at') if query else []
+    return render(request, 'infos/search_results.html', {
+        'query': query,
+        'results': results,
+    })
+
+from django.contrib import messages
+
