@@ -3,16 +3,46 @@
 
 {% block content %}
 
+{% if banner %}
+<div class="banner-container mb-5 position-relative overflow-hidden rounded-4 shadow-lg" style="max-height: 200px;">
+  <a href="{{ banner.url }}" target="_blank" rel="noopener noreferrer" class="hover-transform">
+    <img src="{{ banner.image.url }}"
+         alt="{{ banner.title }}"
+         class="img-fluid w-100 h-100 object-fit-cover"
+         style="transition: transform 0.4s ease-in-out; height: 200px;">
+
+    <!-- Overlay de gradient + texte -->
+    <div class="position-absolute bottom-0 start-0 w-100 p-4 text-white"
+         style="background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, transparent 100%);">
+      <div class="container">
+        <h3 class="mb-2 fw-bold">{{ banner.title }}</h3>
+        {% if banner.description %}
+        <p class="mb-0 d-none d-md-block">{{ banner.description|truncatechars:100 }}</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Badge "Sponsorisé" -->
+    <span class="position-absolute top-0 end-0 m-3 badge rounded-pill bg-light text-dark">
+      <i class="bi bi-megaphone me-1"></i>Sponsorisé
+    </span>
+  </a>
+</div>
+{% endif %}
+
+
+
 <!-- Catégories d'articles -->
       <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
-         <a href="{% url 'articles_by_category' 'Tous' %}" class="border border-dark px-3 py-1 rounded-pill fw-bold text-uppercase text-decoration-none text-dark {% if current_category == 'Tous' %}bg-dark text-white{% endif %}">Tous</a>
-        <a href="{% url 'articles_by_category' 'Monde' %}" class="border border-dark px-3 py-1 rounded-pill fw-bold text-uppercase text-decoration-none text-dark {% if current_category == 'Monde' %}bg-dark text-white{% endif %}">Monde</a>
-        <a href="{% url 'articles_by_category' 'Afrique' %}" class="border border-dark px-3 py-1 rounded-pill fw-bold text-uppercase text-decoration-none text-dark {% if current_category == 'Afrique' %}bg-dark text-white{% endif %}">Afrique</a>
-        <a href="{% url 'articles_by_category' 'Europe' %}" class="border border-dark px-3 py-1 rounded-pill fw-bold text-uppercase text-decoration-none text-dark {% if current_category == 'Europe' %}bg-dark text-white{% endif %}">Europe</a>
-        <a href="{% url 'articles_by_category' 'Orient' %}" class="border border-dark px-3 py-1 rounded-pill fw-bold text-uppercase text-decoration-none text-dark {% if current_category == 'Orient' %}bg-dark text-white{% endif %}">Orient</a>
+
+        <a href="{% url 'articles_by_category' 'Tous' %}" class="border border-success px-3 py-1 rounded-pill fw-bold text-uppercase text-decoration-none text-success {% if current_category == 'Tous' %}bg-dark text-white{% endif %}">Tous</a>
+        <a href="{% url 'articles_by_category' 'Monde' %}" class="border border-success px-3 py-1 rounded-pill fw-bold text-uppercase text-decoration-none text-success {% if current_category == 'Monde' %}bg-dark text-white{% endif %}">Monde</a>
+        <a href="{% url 'articles_by_category' 'Afrique' %}" class="border border-success px-3 py-1 rounded-pill fw-bold text-uppercase text-decoration-none text-success {% if current_category == 'Afrique' %}bg-dark text-white{% endif %}">Afrique</a>
+        <a href="{% url 'articles_by_category' 'Europe' %}" class="border border-success px-3 py-1 rounded-pill fw-bold text-uppercase text-decoration-none text-success {% if current_category == 'Europe' %}bg-dark text-white{% endif %}">Europe</a>
+        <a href="{% url 'articles_by_category' 'Orient' %}" class="border border-success px-3 py-1 rounded-pill fw-bold text-uppercase text-decoration-none text-success {% if current_category == 'Orient' %}bg-dark text-white{% endif %}">Orient</a>
       </div>
       <div class="container mt-5">
-        <div class="bg-primary text-white py-2 px-3 mb-4 rounded shadow-sm overflow-hidden position-relative" style="height: 40px;">
+        <div class="bg-success text-white py-2 px-3 mb-4 rounded shadow-sm overflow-hidden position-relative" style="height: 40px;">
           <div class="scroll-container position-absolute top-50 start-0 translate-middle-y" style="width: 100%; height: 40px; overflow: hidden;">
             <div class="scroll-text">
               🚀 Bienvenue sur notre site officiel Islamweb ! – 🕋 l'info du Monde Musulman en Direct 📰: Afrique, Amériques, Europe & Orient en un clin d’œil
@@ -100,9 +130,10 @@
          </nav>
       </div>
 
-      <aside class="col-lg-4 d-none d-lg-block"><div class="mb-4 p-4 bg-white rounded-4 shadow-sm border border-light-subtle">
-            <h5 class="mb-4 fw-bold border-start border-4 ps-3 border-primary-subtle text-dark-emphasis">
-               <i class="bi bi-newspaper me-1 text-primary"></i> Articles récents
+      <aside class="col-lg-4 d-block">
+         <div class="mb-4 p-4 bg-white rounded-4 shadow-sm border border-light-subtle">
+            <h5 class="mb-4 fw-bold border-start border-4 ps-3 border-success-subtle text-dark-emphasis">
+               <i class="bi bi-newspaper me-1 text-success"></i> Articles récents
             </h5>
 
             {% for article in last_two_articles %}
@@ -128,61 +159,61 @@
             {% endfor %}
          </div>
           <div class="card p-4 shadow-lg border-0" style="background: linear-gradient(135deg, #fdfcfa, #f0f4f8); border-radius: 20px; border-top: 5px solid #dc3545;">
-        <h5 class="fw-bold mb-3 text-danger d-flex align-items-center gap-2" style="font-size: 1.9rem;">
-          ✊ Stop au silence — Justice pour les peuples oubliés
-        </h5>
+            <h5 class="fw-bold mb-3 text-danger d-flex align-items-center gap-2" style="font-size: 1.9rem;">
+              ✊ Stop au silence — Justice pour les peuples oubliés
+            </h5>
 
-        <div class="alert alert-danger d-flex align-items-start gap-3 px-4 py-3 rounded" style="background-color: #ffe6e6; border-left: 5px solid #dc3545;">
-          <div>
-            <p class="mb-0 text-dark fw-semibold" style="font-size: 1.1rem; line-height: 1.7;">
-              En <strong>Palestine</strong>, au <strong>Congo</strong>… des milliers de vies fauchées.<br>
-              Trop de sang. Trop de silence. Trop d’indifférence.<br>
-              <span class="text-danger">Ce n’est pas un conflit. C’est un massacre, un génocide.</span>
+            <div class="alert alert-danger d-flex align-items-start gap-3 px-4 py-3 rounded" style="background-color: #ffe6e6; border-left: 5px solid #dc3545;">
+              <div>
+                <p class="mb-0 text-dark fw-semibold" style="font-size: 1.1rem; line-height: 1.7;">
+                  En <strong>Palestine</strong>, au <strong>Congo</strong>… des milliers de vies fauchées.<br>
+                  Trop de sang. Trop de silence. Trop d’indifférence.<br>
+                  <span class="text-danger">Ce n’est pas un conflit. C’est un massacre, un génocide.</span>
+                </p>
+              </div>
+            </div>
+
+            <p class="mt-4 text-dark" style="line-height: 1.8; font-size: 1.08rem;">
+              Le monde regarde, mais détourne les yeux.<br>
+              À nous de parler. À nous de dénoncer. À nous d’agir.<br>
+              Donnons une voix à ceux qu’on tente de faire taire.
             </p>
+
+            <blockquote class="fst-italic px-4 py-3 rounded mb-4" style="background-color: #e8f1fb; font-size: 1rem; border-left: 4px solid #198754; box-shadow: inset 0 0 6px rgba(13,110,253,0.1);">
+              « Celui qui soulage un croyant d’une difficulté dans ce monde, Allah le soulagera d’une difficulté au Jour du Jugement. »<br>
+              <small class="text-success">—Abû Hurayra: Sahih Muslim</small>
+            </blockquote>
+
+            <div class="mt-2 text-muted small" style="font-size: 0.97rem;">
+              <strong>📅 Dates de mémoire :</strong>
+              <ul class="list-unstyled mt-2 mb-0" style="line-height: 1.6;">
+                <li>🕯️ <strong>7 avril</strong> — Génocide rwandais</li>
+                <li>🕊️ <strong>21 septembre</strong> — Journée internationale de la paix</li>
+                <li>🇵🇸 <strong>29 novembre</strong> — Solidarité avec la Palestine</li>
+              </ul>
+            </div>
+
+            <p class="mt-4 text-secondary" style="font-size: 0.86rem;">
+              Une pensée ne suffit pas. Un post ne suffit pas.<br>
+              Mais le silence, lui, tue. ✋
+            </p>
+
+            <div class="d-flex justify-content-center align-items-center gap-3 mt-4" style="font-size: 15px; user-select: none;">
+              <strong class="text-danger text-uppercase">🛑 Stop GENOCIDE</strong>
+              <img src="https://flagcdn.com/w40/ps.png" alt="Palestine" style="width:28px; height:auto;">
+              <img src="https://flagcdn.com/w40/cd.png" alt="Congo" style="width:28px; height:auto;">
+            </div>
+
+            <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+              <a href="https://www.amnesty.org/fr/petition/end-israels-genocide-against-palestinians-in-gaza/"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 class="btn btn-danger btn-sm rounded-pill px-3 fw-semibold d-flex align-items-center gap-2"
+                 style="transition: background 0.3s;">
+                ✍️ Agir maintenant
+              </a>
+            </div>
           </div>
-        </div>
-
-        <p class="mt-4 text-dark" style="line-height: 1.8; font-size: 1.08rem;">
-          Le monde regarde, mais détourne les yeux.<br>
-          À nous de parler. À nous de dénoncer. À nous d’agir.<br>
-          Donnons une voix à ceux qu’on tente de faire taire.
-        </p>
-
-        <blockquote class="fst-italic px-4 py-3 rounded mb-4" style="background-color: #e8f1fb; font-size: 1rem; border-left: 4px solid #0d6efd; box-shadow: inset 0 0 6px rgba(13,110,253,0.1);">
-          « Celui qui soulage un croyant d’une difficulté dans ce monde, Allah le soulagera d’une difficulté au Jour du Jugement. »<br>
-          <small class="text-primary">—Abû Hurayra: Sahih Muslim</small>
-        </blockquote>
-
-        <div class="mt-2 text-muted small" style="font-size: 0.97rem;">
-          <strong>📅 Dates de mémoire :</strong>
-          <ul class="list-unstyled mt-2 mb-0" style="line-height: 1.6;">
-            <li>🕯️ <strong>7 avril</strong> — Génocide rwandais</li>
-            <li>🕊️ <strong>21 septembre</strong> — Journée internationale de la paix</li>
-            <li>🇵🇸 <strong>29 novembre</strong> — Solidarité avec la Palestine</li>
-          </ul>
-        </div>
-
-        <p class="mt-4 text-secondary" style="font-size: 0.86rem;">
-          Une pensée ne suffit pas. Un post ne suffit pas.<br>
-          Mais le silence, lui, tue. ✋
-        </p>
-
-        <div class="d-flex justify-content-center align-items-center gap-3 mt-4" style="font-size: 15px; user-select: none;">
-          <strong class="text-danger text-uppercase">🛑 Stop GENOCIDE</strong>
-          <img src="https://flagcdn.com/w40/ps.png" alt="Palestine" style="width:28px; height:auto;">
-          <img src="https://flagcdn.com/w40/cd.png" alt="Congo" style="width:28px; height:auto;">
-        </div>
-
-        <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
-          <a href="https://www.amnesty.org/fr/petition/end-israels-genocide-against-palestinians-in-gaza/"
-             target="_blank"
-             rel="noopener noreferrer"
-             class="btn btn-danger btn-sm rounded-pill px-3 fw-semibold d-flex align-items-center gap-2"
-             style="transition: background 0.3s;">
-            ✍️ Agir maintenant
-          </a>
-        </div>
-      </div>
       </aside>
    </div>
 </div>
@@ -221,13 +252,13 @@
 
    .btn-black-outline {
    background-color: white;
-   color: #2563eb;
-   border: 1px solid #2563eb;
+   color: 198754;
+   border: 1px solid #198754;
    transition: all 0.3s ease;
 }
 
 .btn-black-outline:hover {
-   background-color: #2563eb;
+   background-color: #198754;
    color: white;
 }
 
@@ -251,11 +282,11 @@
    .black-pagination {
       color: black;
       border: 1px solid black;
-      background-color: white;
+      background-color: #198754;
    }
 
    .black-pagination:hover {
-      background-color: black;
+      background-color: #198754;
       color: white;
    }
 
@@ -276,8 +307,8 @@
    font-size: 16px;
    font-weight: 500;
    background-color: #ffffff;
-   color: #2563eb; /* bleu intense */
-   border: 2px solid #2563eb;
+   color: #198754;
+   border: 2px solid #198754;
    border-radius: 12px;
    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
    transition: all 0.25s ease;
@@ -286,23 +317,23 @@
 }
 
 .page-link:hover {
-   background-color: #2563eb;
+   background-color: #198754;
    color: #ffffff;
    transform: translateY(-2px);
    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
 }
 
 .page-item.active .page-link {
-   background-color: #2563eb;
+   background-color: #198754;
    color: #ffffff;
    font-weight: bold;
-   border-color: #2563eb;
+   border-color: #198754;
    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
 
 .page-item.disabled .page-link {
    background-color: #f0f4ff;
-   color: #a0b6f2;
+   color: #198754;
    border-color: #dbeafe;
    cursor: not-allowed;
    box-shadow: none;
@@ -310,8 +341,8 @@
 /* cibler uniquement les liens dans la div qui contient les catégories */
 .d-flex.justify-content-center.gap-3.flex-wrap.mb-4 a {
   color: black; /* texte noir */
-  background-color: white; /* fond blanc */
-  border: 2px solid #007bff; /* bordure bleue */
+
+  border: 2px solid #198754;
   transition: background-color 0.3s, color 0.3s;
   text-decoration: none;
   padding: 0.25rem 1rem;
@@ -319,22 +350,39 @@
 }
 
 .d-flex.justify-content-center.gap-3.flex-wrap.mb-4 a:hover {
-  background-color: #007bff; /* fond bleu */
+  background-color: black;
   color: white;
-  border-color: #007bff;
+  border-color: #198754;
   text-decoration: none;
 }
 
 .d-flex.justify-content-center.gap-3.flex-wrap.mb-4 a.bg-dark {
-  background-color: #007bff !important;
+  background-color: #198754 !important;
   color: white !important;
-  border-color: #007bff !important;
+  border-color: #198754 !important;
 }
 
 .hover-effect:hover {
-   color: #0d6efd;
+   color: #198754;
    text-decoration: underline;
+
 }
 
+.hover-transform:hover img {
+  transform: scale(1.03);
+}
+
+.banner-container {
+  border: 1px solid rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.banner-container:hover {
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+}
+
+.object-fit-cover {
+  object-fit: cover;
+}
 </style>
 {% endblock %}
