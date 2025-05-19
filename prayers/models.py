@@ -1,10 +1,7 @@
 from django.db import models
 
-# Create your models here.
-from django.db import models
-
 class PrayerTime(models.Model):
-    day = models.DateField(unique=True)  # pour la date du vendredi
+    day = models.DateField()
     fajr = models.TimeField()
     dhuhr = models.TimeField()
     asr = models.TimeField()
@@ -12,7 +9,9 @@ class PrayerTime(models.Model):
     isha = models.TimeField()
 
     def __str__(self):
-        return f"Heures de prière pour {self.day}"
+        return f"Prayer times for {self.day}"
+
+
 
 class Article(models.Model):
     title = models.CharField(max_length=200)

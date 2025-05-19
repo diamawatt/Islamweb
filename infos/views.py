@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from .models import Article
+from prayers.models import PrayerTime
+from datetime import datetime, timedelta
 
 
 def home(request):
@@ -58,5 +60,22 @@ def article_search(request):
         'results': results,
     })
 
-from django.contrib import messages
+def get_last_friday(today):
+    # .weekday() => lundi = 0, ..., vendredi = 4
+    days_since_friday = (today.weekday() - 4) % 7
+    return today - timedelta(days=days_since_friday)
+
+def prayer_times_view(request):
+    today = datetime.now().date()
+    reference_day = get_last_friday(today)
+
+    try:
+        prayer_times = PrayerTime.objects.get(day=reference_day)
+    except PrayerTime.DoesNotExist:
+        prayer_times = None
+
+    return render(request, 'prayers/prayer_times.html', {
+        'prayer_times': prayer_times,
+        'reference_day': reference_day,
+    })
 

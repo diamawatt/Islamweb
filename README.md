@@ -48,7 +48,7 @@ Contacts
 📞 Téléphone : +221 784629593
 📧 Email : wattdiama039@gmail.com
 💼 LinkedIn : Mouhamadou Diama WATT
-📸 Instagram : @diama_thereal
+📸 Instagram : @diama_therealcd I
 
 Remerciements
 🙏 Merci de soutenir l’initiative Islamweb. Que la paix et la lumière accompagnent toutes les âmes opprimées à travers le monde.

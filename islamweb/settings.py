@@ -108,3 +108,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Type de clé primaire par défaut
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
