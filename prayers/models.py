@@ -1,7 +1,8 @@
 from django.db import models
 
 class PrayerTime(models.Model):
-    day = models.DateField()
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField()    # Exemple : jeudi
     fajr = models.TimeField()
     dhuhr = models.TimeField()
     asr = models.TimeField()
@@ -9,8 +10,7 @@ class PrayerTime(models.Model):
     isha = models.TimeField()
 
     def __str__(self):
-        return f"Prayer times for {self.day}"
-
+        return f"Horaires du {self.start_date} au {self.end_date}"
 
 
 class Article(models.Model):

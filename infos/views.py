@@ -69,7 +69,6 @@ def articles_by_category(request, category_name):
         banners = get_active_banners()
     else:
         articles = Article.objects.filter(category__iexact=category_name).order_by('-published_at')
-        # Pour bannière, on accepte les bannières de cette catégorie ou sans catégorie (null)
         banners = Banner.objects.filter(
             is_active=True,
             start_date__lte=today
@@ -103,7 +102,7 @@ def article_search(request):
         Q(title__icontains=query) | Q(content__icontains=query)
     ).order_by('-published_at') if query else []
 
-    # Bannière générale
+
     banners = get_active_banners()
     banner = random.choice(banners) if banners else None
 
@@ -117,7 +116,6 @@ def article_search(request):
 
 
 def get_last_friday(today):
-    # .weekday() => lundi = 0, ..., vendredi = 4
     days_since_friday = (today.weekday() - 4) % 7
     return today - timedelta(days=days_since_friday)
 
@@ -131,7 +129,6 @@ def prayer_times_view(request):
     except PrayerTime.DoesNotExist:
         prayer_times = None
 
-    # Bannière générale
     banners = get_active_banners()
     banner = random.choice(banners) if banners else None
 

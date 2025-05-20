@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import PrayerTime, Article
+from .models import PrayerTime, Article, PrayerTime
 
 @admin.register(PrayerTime)
 class PrayerTimeAdmin(admin.ModelAdmin):
-    list_display = ('day', 'fajr', 'dhuhr', 'asr', 'maghrib', 'isha')
+    list_display = ['start_date', 'end_date', 'fajr', 'dhuhr', 'asr', 'maghrib', 'isha']
+
 
 
 @admin.register(Article)

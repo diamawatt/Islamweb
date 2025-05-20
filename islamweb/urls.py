@@ -8,7 +8,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('prieres/', include('prayers.urls')),
     path('grappelli/', include('grappelli.urls')),
-    path('admin/', admin.site.urls),
 
 ]
 

@@ -47,8 +47,8 @@ ROOT_URLCONF = 'islamweb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # Dossier global pour les templates
-        'APP_DIRS': True,  # Recherche aussi dans chaque app
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -66,7 +66,7 @@ WSGI_APPLICATION = 'islamweb.wsgi.application'
 # Configuration de la base de données
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',  # Simple pour le développement
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
@@ -79,7 +79,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
         'OPTIONS': {
-            'min_length': 8,  # Bonne pratique : au moins 8 caractères
+            'min_length': 8,
         }
     },
     {
@@ -99,7 +99,7 @@ USE_TZ = True
 # Fichiers statiques (CSS, JS, images communes)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',  # Dossier de fichiers statiques personnalisés
+    BASE_DIR / 'static',
 ]
 
 # Fichiers médias (ex: images d’articles uploadées par l’admin)

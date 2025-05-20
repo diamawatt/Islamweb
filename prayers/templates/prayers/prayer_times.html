@@ -1,7 +1,5 @@
 {% extends 'infos/base.html' %}
-
 {% block title %}Horaires de prière{% endblock %}
-
 {% block content %}
 
 <div class="text-center mb-4">
@@ -9,8 +7,13 @@
     <h5 class="text-muted">Les heures de prières changent chaque Vendredi (Jumu'ah)</h5>
 </div>
 
-{% if prayer_times %}
+{% if next_prayer %}
+<div class="alert alert-success text-center mb-4">
+    🌙 Prochaine prière : <strong>{{ next_prayer.name }}</strong> à {{ next_prayer.time }} (dans {{ next_prayer.remaining }})
+</div>
+{% endif %}
 
+{% if prayer_times %}
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card shadow-sm border-0">

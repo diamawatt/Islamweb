@@ -1,6 +1,5 @@
 {% extends 'infos/base.html' %}
 {% load static %}
-
 {% block content %}
 
 {% if banner %}
@@ -10,8 +9,6 @@
          alt="{{ banner.title }}"
          class="img-fluid w-100 h-100 object-fit-cover"
          style="transition: transform 0.4s ease-in-out; height: 200px;">
-
-    <!-- Overlay de gradient + texte -->
     <div class="position-absolute bottom-0 start-0 w-100 p-4 text-white"
          style="background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, transparent 100%);">
       <div class="container">
@@ -21,8 +18,6 @@
         {% endif %}
       </div>
     </div>
-
-    <!-- Badge "Sponsorisé" -->
     <span class="position-absolute top-0 end-0 m-3 badge rounded-pill bg-light text-dark">
       <i class="bi bi-megaphone me-1"></i>Sponsorisé
     </span>
@@ -30,11 +25,8 @@
 </div>
 {% endif %}
 
-
-
 <!-- Catégories d'articles -->
       <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
-
         <a href="{% url 'articles_by_category' 'Tous' %}" class="border border-success px-3 py-1 rounded-pill fw-bold text-uppercase text-decoration-none text-success {% if current_category == 'Tous' %}bg-dark text-white{% endif %}">Tous</a>
         <a href="{% url 'articles_by_category' 'Monde' %}" class="border border-success px-3 py-1 rounded-pill fw-bold text-uppercase text-decoration-none text-success {% if current_category == 'Monde' %}bg-dark text-white{% endif %}">Monde</a>
         <a href="{% url 'articles_by_category' 'Afrique' %}" class="border border-success px-3 py-1 rounded-pill fw-bold text-uppercase text-decoration-none text-success {% if current_category == 'Afrique' %}bg-dark text-white{% endif %}">Afrique</a>
@@ -135,7 +127,6 @@
             <h5 class="mb-4 fw-bold border-start border-4 ps-3 border-success-subtle text-dark-emphasis">
                <i class="bi bi-newspaper me-1 text-success"></i> Articles récents
             </h5>
-
             {% for article in last_two_articles %}
             <div class="mb-4 d-flex align-items-start">
                {% if article.image %}
@@ -162,7 +153,6 @@
             <h5 class="fw-bold mb-3 text-danger d-flex align-items-center gap-2" style="font-size: 1.9rem;">
               ✊ Stop au silence — Justice pour les peuples oubliés
             </h5>
-
             <div class="alert alert-danger d-flex align-items-start gap-3 px-4 py-3 rounded" style="background-color: #ffe6e6; border-left: 5px solid #dc3545;">
               <div>
                 <p class="mb-0 text-dark fw-semibold" style="font-size: 1.1rem; line-height: 1.7;">
@@ -172,7 +162,6 @@
                 </p>
               </div>
             </div>
-
             <p class="mt-4 text-dark" style="line-height: 1.8; font-size: 1.08rem;">
               Le monde regarde, mais détourne les yeux.<br>
               À nous de parler. À nous de dénoncer. À nous d’agir.<br>
@@ -192,18 +181,15 @@
                 <li>🇵🇸 <strong>29 novembre</strong> — Solidarité avec la Palestine</li>
               </ul>
             </div>
-
             <p class="mt-4 text-secondary" style="font-size: 0.86rem;">
               Une pensée ne suffit pas. Un post ne suffit pas.<br>
               Mais le silence, lui, tue. ✋
             </p>
-
             <div class="d-flex justify-content-center align-items-center gap-3 mt-4" style="font-size: 15px; user-select: none;">
               <strong class="text-danger text-uppercase">🛑 Stop GENOCIDE</strong>
               <img src="https://flagcdn.com/w40/ps.png" alt="Palestine" style="width:28px; height:auto;">
               <img src="https://flagcdn.com/w40/cd.png" alt="Congo" style="width:28px; height:auto;">
             </div>
-
             <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
               <a href="https://www.amnesty.org/fr/petition/end-israels-genocide-against-palestinians-in-gaza/"
                  target="_blank"
@@ -257,7 +243,7 @@
    transition: all 0.3s ease;
 }
 
-.btn-black-outline:hover {
+    .btn-black-outline:hover {
    background-color: #198754;
    color: white;
 }
@@ -298,11 +284,11 @@
    font-family: 'Segoe UI', sans-serif;
 }
 
-.page-item {
+   .page-item {
    transition: transform 0.2s ease;
 }
 
-.page-link {
+   .page-link {
    padding: 10px 18px;
    font-size: 16px;
    font-weight: 500;
@@ -316,14 +302,14 @@
    text-decoration: none;
 }
 
-.page-link:hover {
+   .page-link:hover {
    background-color: #198754;
    color: #ffffff;
    transform: translateY(-2px);
    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
 }
 
-.page-item.active .page-link {
+   .page-item.active .page-link {
    background-color: #198754;
    color: #ffffff;
    font-weight: bold;
@@ -331,15 +317,15 @@
    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
 
-.page-item.disabled .page-link {
+   .page-item.disabled .page-link {
    background-color: #f0f4ff;
    color: #198754;
    border-color: #dbeafe;
    cursor: not-allowed;
    box-shadow: none;
 }
-/* cibler uniquement les liens dans la div qui contient les catégories */
-.d-flex.justify-content-center.gap-3.flex-wrap.mb-4 a {
+
+  .d-flex.justify-content-center.gap-3.flex-wrap.mb-4 a {
   color: black; /* texte noir */
 
   border: 2px solid #198754;
@@ -349,39 +335,39 @@
   border-radius: 50px;
 }
 
-.d-flex.justify-content-center.gap-3.flex-wrap.mb-4 a:hover {
+  .d-flex.justify-content-center.gap-3.flex-wrap.mb-4 a:hover {
   background-color: black;
   color: white;
   border-color: #198754;
   text-decoration: none;
 }
 
-.d-flex.justify-content-center.gap-3.flex-wrap.mb-4 a.bg-dark {
+  .d-flex.justify-content-center.gap-3.flex-wrap.mb-4 a.bg-dark {
   background-color: #198754 !important;
   color: white !important;
   border-color: #198754 !important;
 }
 
-.hover-effect:hover {
+  .hover-effect:hover {
    color: #198754;
    text-decoration: underline;
 
 }
 
-.hover-transform:hover img {
+   .hover-transform:hover img {
   transform: scale(1.03);
 }
 
-.banner-container {
+   .banner-container {
   border: 1px solid rgba(0,0,0,0.1);
   transition: box-shadow 0.3s ease;
 }
 
-.banner-container:hover {
+   .banner-container:hover {
   box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
 }
 
-.object-fit-cover {
+  .object-fit-cover {
   object-fit: cover;
 }
 </style>

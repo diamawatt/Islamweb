@@ -1,5 +1,4 @@
 {% extends 'infos/base.html' %}
-
 {% block content %}
 
 <style>
@@ -65,7 +64,6 @@
 
 <div class="container mt-5">
     <div class="row">
-        <!-- Contenu principal -->
         <div class="col-md-8">
             {% if article.image %}
             <div class="article-hero shadow-sm">
@@ -81,10 +79,6 @@
             <div class="article-body">
                 {{ article.content|linebreaks }}
             </div>
-
-
-
-
             <div class="mt-5">
                 <h5>Partager cet article :</h5>
 
@@ -113,7 +107,6 @@
             <h5 class="mb-4 fw-bold border-start border-4 ps-3 border-primary-subtle text-dark-emphasis">
                <i class="bi bi-newspaper me-1 text-primary"></i> Articles récents
             </h5>
-
             {% for article in last_two_articles %}
             <div class="mb-4 d-flex align-items-start">
                {% if article.image %}
@@ -140,7 +133,6 @@
         <h5 class="fw-bold mb-3 text-danger d-flex align-items-center gap-2" style="font-size: 1.9rem;">
           ✊ Stop au silence — Justice pour les peuples oubliés
         </h5>
-
         <div class="alert alert-danger d-flex align-items-start gap-3 px-4 py-3 rounded" style="background-color: #ffe6e6; border-left: 5px solid #dc3545;">
           <div>
             <p class="mb-0 text-dark fw-semibold" style="font-size: 1.1rem; line-height: 1.7;">
@@ -150,18 +142,15 @@
             </p>
           </div>
         </div>
-
         <p class="mt-4 text-dark" style="line-height: 1.8; font-size: 1.08rem;">
           Le monde regarde, mais détourne les yeux.<br>
           À nous de parler. À nous de dénoncer. À nous d’agir.<br>
           Donnons une voix à ceux qu’on tente de faire taire.
         </p>
-
         <blockquote class="fst-italic px-4 py-3 rounded mb-4" style="background-color: #e8f1fb; font-size: 1rem; border-left: 4px solid #198754; box-shadow: inset 0 0 6px rgba(13,110,253,0.1);">
           « Celui qui soulage un croyant d’une difficulté dans ce monde, Allah le soulagera d’une difficulté au Jour du Jugement. »<br>
           <small class="text-success">—Abû Hurayra: Sahih Muslim</small>
         </blockquote>
-
         <div class="mt-2 text-muted small" style="font-size: 0.97rem;">
           <strong>📅 Dates de mémoire :</strong>
           <ul class="list-unstyled mt-2 mb-0" style="line-height: 1.6;">
@@ -175,13 +164,11 @@
           Une pensée ne suffit pas. Un post ne suffit pas.<br>
           Mais le silence, lui, tue. ✋
         </p>
-
         <div class="d-flex justify-content-center align-items-center gap-3 mt-4" style="font-size: 15px; user-select: none;">
           <strong class="text-danger text-uppercase">🛑 Stop GENOCIDE</strong>
           <img src="https://flagcdn.com/w40/ps.png" alt="Palestine" style="width:28px; height:auto;">
           <img src="https://flagcdn.com/w40/cd.png" alt="Congo" style="width:28px; height:auto;">
         </div>
-
         <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
           <a href="https://www.amnesty.org/fr/petition/end-israels-genocide-against-palestinians-in-gaza/"
              target="_blank"
@@ -195,8 +182,6 @@
       </aside>
     </div>
 </div>
-
-
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 {% endblock %}
