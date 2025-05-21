@@ -139,3 +139,4 @@ def prayer_times_view(request):
     }
 
     return render(request, 'prayers/prayer_times.html', context)
+

@@ -7,4 +7,5 @@ urlpatterns = [
     path('article/<int:pk>/', views.article_detail, name='article_detail'),
     path('recherche/', views.article_search, name='article_search'),
 
+
 ]

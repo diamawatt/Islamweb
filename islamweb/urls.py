@@ -5,10 +5,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('infos.urls')),
-    path('admin/', admin.site.urls),
+    path('zone-secrete-diamathereal/', admin.site.urls),
     path('prieres/', include('prayers.urls')),
     path('grappelli/', include('grappelli.urls')),
-
 ]
 
 if settings.DEBUG:
